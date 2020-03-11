@@ -1,0 +1,42 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: POE Filter
+file_extensions: [filter]
+scope: poefilter.filter
+
+contexts:
+  main:
+    - match: \b(Hide|Show)\b
+      scope: keyword.control.filter
+    - match: '"'
+      push: string
+    - match: '#'
+      push: comment
+    - match: =|<|>|<=|>=
+      scope: operators.filter
+      push: operators
+    - match: AreaLevel|ItemLevel|DropLevel|Quality|Rarity|Class|BaseType|Prophecy|LinkedSockets|SocketGroup|Sockets|Height|Width|HasExplicitMod|AnyEnchantment|HasEnchantment|StackSize|GemLevel|Identified|Corrupted|CorruptedMods|Mirrored|ElderItem|ShaperItem|HasInfluence|FracturedItem|SynthesisedItem|ShapedMap|MapTier
+      scope: variable.function
+    - match: SetBorderColor|SetTextColor|SetBackgroundColor|SetFontSize|PlayAlertSound|PlayAlertSoundPositional|DisableDropSound|CustomAlertSound|MinimapIcon|PlayEffect|Continue
+      scope: markup.inserted
+
+
+
+  string:
+    - meta_scope: string.quoted.double
+    - match: '"'
+      pop: true
+
+  comment:
+    - meta_scope: comment.line.filter
+    - match: '(?=\?>)'
+      pop: true
+    - match: \n
+      pop: true
+
+  operators:
+    - match: ' '
+      pop: true
+    
+
